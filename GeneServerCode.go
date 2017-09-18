@@ -40,6 +40,10 @@ func parseXlsmFile(filename string) {
             continue
         }
 
+        map_name := fmt.Sprintf("%s_cfgMap", SheetName)
+        content = fmt.Sprintf("%s\r\nfunc Get_%s(id int, key string) string {\r\n\tval1, ok1 := %s[id]\r\n\tif !ok1 {\r\n\t\treturn \"\"\r\n\t}\r\n\tval2, ok2 := (*val1)[key]\r\n\tif !ok2 {\r\n\t\treturn \"\"\r\n\t}\r\n\treturn val2\r\n}\r\n\r\n\r\n", content, map_name,map_name )
+
+
         fmt.Println(fmt.Sprintf("\tprocess sheet name:%s", SheetName ))
         rows := xlsx.GetRows( fmt.Sprintf("Sheet%d",idx) )
         isServMap := make(map[int]bool, 0)
